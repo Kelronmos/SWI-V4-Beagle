@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.tmp/
+*.log
+
+# Large/ephemeral run workspaces
+runs/*/source/
+runs/*/build/
+runs/*/tests/
+runs/*/logs/
+
+# Local exports can be regenerated
+exports/RUN-*/

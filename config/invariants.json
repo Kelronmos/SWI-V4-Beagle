@@ -1,0 +1,32 @@
+{
+  "role": "V4 Beagle is deployment/diagnostic/rebuild/test control plane. Not a replacement for V1–V3.",
+  "boundaries": [
+    "DATA ≠ EVIDENCE",
+    "EVIDENCE ≠ ADMISSION",
+    "ADMISSION ≠ AUTHORIZATION",
+    "AUTHORIZATION ≠ ACTION",
+    "OBSERVATION ≠ AUTHORITY",
+    "CAPABILITY ≠ PERMISSION",
+    "INSTRUCTION ≠ AUTHORIZATION",
+    "MATCH ≠ PERMIT ≠ EXECUTE",
+    "UNKNOWN ≠ FALSE",
+    "TESTED ≠ PROVEN",
+    "TESTED ≠ SEALED",
+    "SEALED ≠ AUTHORIZED",
+    "BUILD PASS ≠ AUTHORIZATION",
+    "PIPELINE READY ≠ AUTHORIZATION",
+    "DEVICE BOUND ≠ AUTHORIZATION",
+    "CI GREEN ≠ SWI AUTHORIZED"
+  ],
+  "execution_gate": [
+    "HIVE_HEADER_VALID",
+    "SWI_N_VALID",
+    "FLOW_BIND",
+    "RUNTIME_MATCH",
+    "HUMAN_AUTHORITY_BOUND",
+    "AUTHORIZATION_VALID",
+    "E_SUFFICIENT",
+    "REPLAY_VALID"
+  ],
+  "beagle_principle": "Show what exists, what is missing, what failed, and actual readiness — never manufacture authorization."
+}

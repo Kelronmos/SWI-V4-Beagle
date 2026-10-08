@@ -1,0 +1,30 @@
+{
+  "description": "Approved SWI sources for V4 Beagle. Allow inspect/fetch only. NOT proven/sealed/authorized.",
+  "sources": [
+    {
+      "repository": "SWI-V1-Module-1-10",
+      "url": "https://github.com/Kelronmos/SWI-V1-Module-1-10",
+      "allowed_refs": ["main", "master"],
+      "purpose": "V1 formal lineage / foundation modules",
+      "trust_class": "APPROVED_SOURCE",
+      "expected_artifacts": ["README.md", "tests"]
+    },
+    {
+      "repository": "SWI-V2-Modules-11-22",
+      "url": "https://github.com/Kelronmos/SWI-V2-Modules-11-22",
+      "allowed_refs": ["main", "master"],
+      "purpose": "V2 modules 11–22 / execution integrity lineage",
+      "trust_class": "APPROVED_SOURCE",
+      "expected_artifacts": ["swi_v2", "tests", "test"]
+    },
+    {
+      "repository": "SWI-V3-Modules-11-22",
+      "url": "https://github.com/Kelronmos/SWI-V3-Modules-11-22",
+      "allowed_refs": ["main", "v3-0002-architecture-baseline"],
+      "purpose": "V3 architecture / hardware / contracts",
+      "trust_class": "APPROVED_SOURCE",
+      "expected_artifacts": ["swi_v3", "tests", "docs"]
+    }
+  ],
+  "note": "APPROVED_SOURCE ≠ AUTHORITATIVE_PROOF ≠ AUTHORIZED"
+}
