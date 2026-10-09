@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SWI V4 Beagle</title>
+  <style>
+    body{margin:0;font-family:system-ui,sans-serif;background:#0a0f18;color:#e8eef7}
+    header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid #1c2a40}
+    .badge{background:#3a1c1c;color:#f0a0a0;padding:.35rem .8rem;border-radius:999px;font-size:.8rem}
+    main{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px)}
+    nav{background:#101826;padding:1rem;border-right:1px solid #1c2a40}
+    nav button{display:block;width:100%;margin:.3rem 0;padding:.55rem .7rem;border-radius:8px;border:1px solid #2a3d5c;background:transparent;color:#e8eef7;cursor:pointer;text-align:left}
+    nav button.primary{border-color:#5b9fd4;background:#152033}
+    section{padding:1.25rem}
+    .pipe{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+    .step{background:#101826;border:1px solid #1c2a40;border-radius:10px;padding:.75rem 1rem;min-width:100px}
+    .step h4{margin:0;font-size:.7rem;color:#8aa0bc;text-transform:uppercase}
+    .log{background:#060a10;border-radius:10px;padding:1rem;font-family:ui-monospace,monospace;font-size:.85rem;max-height:320px;overflow:auto;border:1px solid #1c2a40}
+    .muted{color:#8aa0bc;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>SWI V4 Beagle</strong>
+      <span class="muted"> — deployment / diagnostics / test</span>
+    </div>
+    <span class="badge">AUTHORIZED = NO · PROVEN = NO</span>
+  </header>
+  <main>
+    <nav>
+      <p class="muted">Default: AUDIT</p>
+      <button class="primary" id="audit">AUDIT</button>
+      <button id="rebuild">REBUILD (blocked)</button>
+      <button id="runs">VIEW RUNS</button>
+      <button id="status">STATUS</button>
+    </nav>
+    <section>
+      <p class="muted">V1–V3 = source lineage · V4 = inspect, build in isolation, test, evidence, readiness</p>
+      <div class="pipe">
+        <div class="step"><h4>Discover</h4><div id="s1">—</div></div>
+        <div class="step"><h4>Structure</h4><div id="s2">—</div></div>
+        <div class="step"><h4>Device</h4><div id="s3">—</div></div>
+        <div class="step"><h4>Build</h4><div id="s4">NOT RUN</div></div>
+        <div class="step"><h4>Test</h4><div id="s5">NOT RUN</div></div>
+        <div class="step"><h4>Ready</h4><div id="s6">—</div></div>
+        <div class="step"><h4>Auth</h4><div style="color:#f0a0a0">NO</div></div>
+      </div>
+      <div class="log" id="log"></div>
+    </section>
+  </main>
+  <script>
+    const log = (m) => {
+      const d = document.createElement('div');
+      d.textContent = `[${new Date().toISOString().slice(11,19)}] ${m}`;
+      document.getElementById('log').prepend(d);
+    };
+    document.getElementById('audit').onclick = async () => {
+      log('AUDIT START');
+      const r = await fetch('/api/audit', {method:'POST'});
+      const j = await r.json();
+      log('AUDIT ' + j.execution_id + ' PIPELINE_READY=' + j.PIPELINE_READY);
+      document.getElementById('s1').textContent = 'DONE';
+      document.getElementById('s6').textContent = j.PIPELINE_READY ? 'YES*' : 'NO';
+      log('* PIPELINE_READY ≠ AUTHORIZATION');
+    };
+    document.getElementById('rebuild').onclick = () => log('REBUILD blocked — explicit confirmation required');
+    document.getElementById('runs').onclick = async () => {
+      const j = await (await fetch('/api/runs')).json();
+      log('RUNS ' + JSON.stringify(j.runs?.slice(0,5)));
+    };
+    document.getElementById('status').onclick = async () => {
+      const j = await (await fetch('/api/status')).json();
+      log(JSON.stringify(j));
+    };
+    log('Beagle ready — AUDIT first');
+  </script>
+</body>
+</html>
